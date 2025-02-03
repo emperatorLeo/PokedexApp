@@ -1,13 +1,14 @@
 # Gradle files
 *.iml
-.gradle/
-build/
+.gradle
+/local.properties
+.DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
-# Local configuration file (sdk path, etc)
 local.properties
+/libs
 
 # Log/OS Files
 *.log
@@ -28,7 +29,7 @@ output.json
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/vcs.xml
-.DS_Store
+
 
 misc.xml
 deploymentTargetDropDown.xml
