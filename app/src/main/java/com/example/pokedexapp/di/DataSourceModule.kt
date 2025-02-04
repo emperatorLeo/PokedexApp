@@ -1,10 +1,10 @@
 package com.example.pokedexapp.di
 
 import com.example.pokedexapp.data.remote.PokeService
-import com.example.pokedexapp.data.repository.ApiSourceImp
+import com.example.pokedexapp.data.datasource.ApiSourceImp
 import com.example.pokedexapp.data.repository.RepositoryImp
-import com.example.pokedexapp.domain.datasource.ApiSource
-import com.example.pokedexapp.domain.repository.Repository
+import com.example.pokedexapp.data.datasource.ApiSource
+import com.example.pokedexapp.data.repository.Repository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

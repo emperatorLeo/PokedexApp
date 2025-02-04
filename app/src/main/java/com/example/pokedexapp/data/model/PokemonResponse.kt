@@ -1,15 +1,50 @@
 package com.example.pokedexapp.data.model
 
+import com.example.pokedexapp.domain.model.Movement
+import com.example.pokedexapp.domain.model.PokemonDto
 import com.google.gson.annotations.SerializedName
 
 data class PokemonResponse(
     @SerializedName("base_experience") val baseExperience: Int,
-    @SerializedName("forms") val arrayList: ArrayList<PokemonForm>,
+    @SerializedName("forms") val form: ArrayList<PokemonForm>,
     @SerializedName("height") val height: Int,
     @SerializedName("id") val id: Int,
     @SerializedName("moves") val moves: ArrayList<PokemonMovement>,
     @SerializedName("types") val types: ArrayList<PokemonType>
-)
+) {
+    fun toPokemonDto(): PokemonDto {
+        return PokemonDto(
+            id = id,
+            name = form.toList().first().name,
+            type = toTypeList(types),
+            baseExperience = baseExperience,
+            height = height,
+            movements = toMovementList(moves)
+        )
+    }
+
+    private fun toTypeList(types: ArrayList<PokemonType>): List<String> {
+        val list = arrayListOf<String>()
+
+        for (type in types) {
+            list.add(type.type.typeName)
+        }
+        return list
+    }
+
+    private fun toMovementList(moves: ArrayList<PokemonMovement>): List<Movement> {
+        val list = arrayListOf<Movement>()
+        for (movement in moves) {
+            list.add(
+                Movement(
+                    movementName = movement.move.movementName,
+                    movementLearnAt = movement.groupDetails.toList().first().levelLearned
+                )
+            )
+        }
+        return list
+    }
+}
 
 data class PokemonForm(
     @SerializedName("name") val name: String

@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pokedexapp.ui.theme.PokedexAppTheme
-import com.example.pokedexapp.ui.viewmodel.PokeSharedViewModel
+import com.example.pokedexapp.presentation.theme.PokedexAppTheme
+import com.example.pokedexapp.presentation.viewmodel.PokeSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

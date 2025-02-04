@@ -1,7 +1,6 @@
-package com.example.pokedexapp.data.repository
+package com.example.pokedexapp.data.datasource
 
 import com.example.pokedexapp.data.remote.PokeService
-import com.example.pokedexapp.domain.datasource.ApiSource
 
 class ApiSourceImp(private val pokeService: PokeService) : ApiSource {
     override suspend fun getAllPokemons(limit: Int) =

@@ -2,7 +2,7 @@ package com.example.pokedexapp.di
 
 import com.example.pokedexapp.domain.usecase.GetAllPokemonsUseCase
 import com.example.pokedexapp.domain.usecase.GetOnePokemonUseCase
-import com.example.pokedexapp.ui.viewmodel.PokeSharedViewModel
+import com.example.pokedexapp.presentation.viewmodel.PokeSharedViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,7 +1,7 @@
 package com.example.pokedexapp.domain.usecase
 
 import android.util.Log
-import com.example.pokedexapp.domain.repository.Repository
+import com.example.pokedexapp.data.repository.Repository
 import com.example.pokedexapp.util.POKEMON_LIMIT
 import javax.inject.Inject
 
