@@ -41,6 +41,8 @@ data class PokemonResponse(
                     movementLearnAt = movement.groupDetails.toList().first().levelLearned
                 )
             )
+            if (list.size >= 10)
+                break
         }
         return list
     }
