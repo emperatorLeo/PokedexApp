@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetAllPokemonsUseCase @Inject constructor(private val repository: Repository) {
     suspend operator fun invoke() {
-        val response = repository.goCatchThemAll(POKEMON_LIMIT)
+        val response = repository.getAllPokemons(POKEMON_LIMIT)
 
         for (name in response.results){
             Log.d("Leo", "Pokemon: $name")
