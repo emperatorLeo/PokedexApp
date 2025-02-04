@@ -9,9 +9,10 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2025.01.01"
 retrofitVersion = "2.11.0"
-gsonVersion = "2.11.0"
+gsonVersion = "2.10.1"
 hiltVersion = "2.51.1"
 hiltNavigationVersion = "1.2.0"
+okhttpVersion = "4.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,14 +30,16 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
-gson-converter = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonVersion"}
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gsonVersion" }
+gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltVersion" }
-hilt-navigation = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationVersion"}
-hilt-kapt = {group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltVersion" }
+hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationVersion" }
+hilt-kapt = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltVersion" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttpVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
-hilt-kapt = { id = "kotlin-kapt"}
+hilt-kapt = { id = "kotlin-kapt" }

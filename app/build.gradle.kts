@@ -56,6 +56,12 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson.converter)
 
+    // Okhttp
+    implementation(libs.okhttp)
+
+    // Gson
+    implementation(libs.gson)
+
     // Hilt
     implementation(libs.hilt)
     implementation(libs.hilt.navigation)

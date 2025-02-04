@@ -1,8 +1,7 @@
 package com.example.pokedexapp.domain.repository
 
-import okhttp3.ResponseBody
-import retrofit2.Call
+import com.example.pokedexapp.data.model.PokedexResponse
 
 interface Repository {
-    suspend fun goCatchThemAll(limit:Int): Call<ResponseBody>
+    suspend fun goCatchThemAll(limit:Int): PokedexResponse
 }
