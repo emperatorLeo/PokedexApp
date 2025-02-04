@@ -1,6 +1,7 @@
 package com.example.pokedexapp.data.localdatasource
 
 import com.example.pokedexapp.data.model.entities.Pokemon
+import kotlinx.coroutines.flow.flow
 
 class LocalDataSourceImp(db: PokeDatabase) : LocalDataSource {
     private val dao = db.pokeDao()
@@ -13,12 +14,16 @@ class LocalDataSourceImp(db: PokeDatabase) : LocalDataSource {
         dao.insertPokemonList(pokemonList)
     }
 
-    override suspend fun getAllPokemonsFromDB(): List<Pokemon> {
-        return dao.getAllPokemonFromDB()
+    override suspend fun getAllPokemonsFromDB() = flow {
+        dao.getAllPokemonFromDB().collect {
+            emit(it.map { pokemon -> pokemon.fromEntityToDto() })
+        }
     }
 
-    override suspend fun searchPokemon(name: String): List<Pokemon> {
-        return dao.getFilterPokemons(name)
+    override suspend fun searchPokemon(name: String) = flow {
+        dao.getFilterPokemons(name).collect {
+            emit(it.map { pokemon -> pokemon.fromEntityToDto() })
+        }
     }
 
     override suspend fun emptyTable() {

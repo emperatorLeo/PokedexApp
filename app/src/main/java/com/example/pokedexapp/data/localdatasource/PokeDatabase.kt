@@ -7,7 +7,7 @@ import com.example.pokedexapp.data.converters.RoomTypeConverters
 import com.example.pokedexapp.data.model.entities.Pokemon
 
 @TypeConverters(value = [RoomTypeConverters::class])
-@Database(entities = [Pokemon::class], version = 1)
+@Database(entities = [Pokemon::class], version = 1, exportSchema = false)
 abstract class PokeDatabase: RoomDatabase() {
     abstract fun pokeDao(): PokeDao
 

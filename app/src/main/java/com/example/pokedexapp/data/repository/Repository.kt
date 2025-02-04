@@ -13,11 +13,11 @@ interface Repository {
 
     suspend fun insertSinglePokemon(pokemon: Pokemon)
 
-    suspend fun insertListPokemon(pokemonList: List<Pokemon>)
+    suspend fun insertListPokemon(pokemonList: List<PokemonDto>)
 
-    suspend fun getAllPokemonsFromDB(): List<Pokemon>
+    suspend fun getAllPokemonsFromDB(): Flow<List<PokemonDto>>
 
-    suspend fun searchPokemon(name: String): List<Pokemon>
+    suspend fun searchPokemon(name: String): Flow<List<PokemonDto>>
 
     suspend fun emptyTable()
 }

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.pokedexapp.data.model.entities.Pokemon
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokeDao {
@@ -14,10 +15,10 @@ interface PokeDao {
     suspend fun insertPokemonList(pokemonList: List<Pokemon>)
 
     @Query("SELECT * FROM PokeTable")
-    suspend fun getAllPokemonFromDB(): List<Pokemon>
+    fun getAllPokemonFromDB(): Flow<List<Pokemon>>
 
     @Query("SELECT * FROM PokeTable WHERE name LIKE :name")
-    suspend fun getFilterPokemons(name:String): List<Pokemon>
+    fun getFilterPokemons(name:String): Flow<List<Pokemon>>
 
     @Query("DELETE FROM PokeTable")
     suspend fun deleteTable()

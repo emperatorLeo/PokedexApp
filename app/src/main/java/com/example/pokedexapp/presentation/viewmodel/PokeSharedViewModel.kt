@@ -12,7 +12,6 @@ import com.example.pokedexapp.domain.usecase.GetOnePokemonUseCase
 import com.example.pokedexapp.domain.usecase.InsertListOfPokemonsUseCase
 import com.example.pokedexapp.domain.usecase.SearchPokemonUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,22 +26,17 @@ class PokeSharedViewModel @Inject constructor(
 ) : ViewModel() {
     private val pokemonList = arrayListOf<PokemonDto>()
 
-    init {
-        getAllPokemons()
-    }
-
-    fun getAllPokemons() {
+    private fun getAllPokemons() {
         viewModelScope.launch {
-            delay(5000)
             val response = getAllPokemonsUseCase.invoke()
             response.collect {
                 when (it) {
                     is Either.Left -> {}
                     is Either.Right -> {
                         for (pokedex in it.value) {
-                            getOnePokemon(getId(pokedex.url))
+                            getPokemonInfo(getId(pokedex.url))
                             if (pokemonList.size >= 151)
-                                Log.d("Leo", "pokemonList $pokemonList")
+                                savePokemons(pokemonList)
                         }
                     }
                 }
@@ -50,7 +44,32 @@ class PokeSharedViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getOnePokemon(id: Int) {
+    private fun searchPokemon(name:String){
+        viewModelScope.launch {
+            val query = searchPokemonUseCase.invoke(name)
+            query.collect {
+                Log.d("Leo", "db search List: $it")
+            }
+        }
+    }
+
+    private fun savePokemons(list: List<PokemonDto>) {
+        viewModelScope.launch {
+            insertListOfPokemonsUseCase.invoke(list)
+            getAllDBPokemons()
+        }
+    }
+
+    private fun getAllDBPokemons() {
+        viewModelScope.launch {
+            val query = getAllPokemonsFromDBUseCase.invoke()
+            query.collect {
+                Log.d("Leo", "db List: $it")
+            }
+        }
+    }
+
+    private suspend fun getPokemonInfo(id: Int) {
         val response = getOnePokemonUseCase.invoke(id)
         response.collect {
             when (it) {
@@ -59,6 +78,12 @@ class PokeSharedViewModel @Inject constructor(
                     pokemonList.add(it.value)
                 }
             }
+        }
+    }
+
+    private fun dropTable() {
+        viewModelScope.launch {
+            emptyTableUseCase.invoke()
         }
     }
 
