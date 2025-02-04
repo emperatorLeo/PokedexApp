@@ -5,10 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.core.Either
 import com.example.pokedexapp.domain.model.PokemonDto
-import com.example.pokedexapp.domain.usecase.EmptyTableUseCase
 import com.example.pokedexapp.domain.usecase.GetAllPokemonsFromDBUseCase
 import com.example.pokedexapp.domain.usecase.GetAllPokemonsUseCase
-import com.example.pokedexapp.domain.usecase.GetOnePokemonUseCase
+import com.example.pokedexapp.domain.usecase.GetPokemonInfoUseCase
 import com.example.pokedexapp.domain.usecase.InsertListOfPokemonsUseCase
 import com.example.pokedexapp.domain.usecase.SearchPokemonUseCase
 import com.example.pokedexapp.presentation.UIState
@@ -21,11 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class PokeSharedViewModel @Inject constructor(
     private val getAllPokemonsUseCase: GetAllPokemonsUseCase,
-    private val getOnePokemonUseCase: GetOnePokemonUseCase,
+    private val getPokemonInfoUseCase: GetPokemonInfoUseCase,
     private val getAllPokemonsFromDBUseCase: GetAllPokemonsFromDBUseCase,
     private val insertListOfPokemonsUseCase: InsertListOfPokemonsUseCase,
     private val searchPokemonUseCase: SearchPokemonUseCase,
-    private val emptyTableUseCase: EmptyTableUseCase,
 ) : ViewModel() {
     private val pokemonList = arrayListOf<PokemonDto>()
     private val _uiState = MutableStateFlow<UIState>(UIState.Idle)
@@ -80,7 +78,7 @@ class PokeSharedViewModel @Inject constructor(
     }
 
     private suspend fun getPokemonInfo(id: Int) {
-        val response = getOnePokemonUseCase.invoke(id)
+        val response = getPokemonInfoUseCase.invoke(id)
         response.collect {
             when (it) {
                 is Either.Left -> {}
@@ -88,12 +86,6 @@ class PokeSharedViewModel @Inject constructor(
                     pokemonList.add(it.value)
                 }
             }
-        }
-    }
-
-    private fun dropTable() {
-        viewModelScope.launch {
-            emptyTableUseCase.invoke()
         }
     }
 

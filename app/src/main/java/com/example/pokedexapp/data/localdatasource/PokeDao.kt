@@ -8,8 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokeDao {
-    @Insert
-    suspend fun insertPokemon(pokemon: Pokemon)
 
     @Insert
     suspend fun insertPokemonList(pokemonList: List<Pokemon>)
@@ -19,7 +17,4 @@ interface PokeDao {
 
     @Query("SELECT * FROM PokeTable WHERE name LIKE :name")
     fun getFilterPokemons(name:String): Flow<List<Pokemon>>
-
-    @Query("DELETE FROM PokeTable")
-    suspend fun deleteTable()
 }

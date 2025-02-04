@@ -6,13 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
 
-    suspend fun insertSinglePokemon(pokemon: Pokemon)
-
     suspend fun insertListPokemon(pokemonList: List<Pokemon>)
 
     suspend fun getAllPokemonsFromDB(): Flow<List<PokemonDto>>
 
     suspend fun searchPokemon(name: String): Flow<List<PokemonDto>>
-
-    suspend fun emptyTable()
 }
