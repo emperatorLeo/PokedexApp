@@ -1,10 +1,12 @@
 package com.example.pokedexapp.data.datasource
 
-import com.example.pokedexapp.data.model.PokedexResponse
-import com.example.pokedexapp.data.model.PokemonResponse
+import arrow.core.Either
+import com.example.pokedexapp.domain.model.PokedexDto
+import com.example.pokedexapp.domain.model.PokemonDto
+import kotlinx.coroutines.flow.Flow
 
 interface ApiSource {
-    suspend fun getAllPokemons(limit: Int): PokedexResponse
+    suspend fun getAllPokemons(limit: Int): Flow<Either<Error, ArrayList<PokedexDto>>>
 
-    suspend fun getOnePokemn(id: Int): PokemonResponse
+    suspend fun getOnePokemon(id: Int): Flow<Either<Error, PokemonDto>>
 }

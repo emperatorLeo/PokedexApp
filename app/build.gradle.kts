@@ -67,6 +67,9 @@ dependencies {
     implementation(libs.hilt.navigation)
     kapt(libs.hilt.kapt)
 
+    // Arrow
+    implementation(libs.arrow)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

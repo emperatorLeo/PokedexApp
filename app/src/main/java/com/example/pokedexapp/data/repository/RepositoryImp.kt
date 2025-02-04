@@ -6,5 +6,5 @@ class RepositoryImp(private val apiSource: ApiSource) : Repository {
 
     override suspend fun getAllPokemons(limit: Int) = apiSource.getAllPokemons(limit)
 
-    override suspend fun getOnePokemn(id: Int) = apiSource.getOnePokemn(id)
+    override suspend fun getOnePokemn(id: Int) = apiSource.getOnePokemon(id)
 }
