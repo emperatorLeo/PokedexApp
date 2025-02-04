@@ -1,4 +1,4 @@
-package com.example.pokedexapp.data.model
+package com.example.pokedexapp.data.model.responses
 
 import com.example.pokedexapp.domain.model.Movement
 import com.example.pokedexapp.domain.model.PokemonDto

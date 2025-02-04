@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetOnePokemonUseCase @Inject constructor(private val repository: Repository) {
 
     suspend fun invoke(pokemonId: Int) {
-        val response = repository.getOnePokemn(pokemonId)
+        val response = repository.getOnePokemon(pokemonId)
         response.collect {
             when (it) {
                 is Either.Left -> {}

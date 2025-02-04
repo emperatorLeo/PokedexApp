@@ -3,8 +3,12 @@ package com.example.pokedexapp.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pokedexapp.domain.usecase.EmptyTableUseCase
+import com.example.pokedexapp.domain.usecase.GetAllPokemonsFromDBUseCase
 import com.example.pokedexapp.domain.usecase.GetAllPokemonsUseCase
 import com.example.pokedexapp.domain.usecase.GetOnePokemonUseCase
+import com.example.pokedexapp.domain.usecase.InsertListOfPokemonsUseCase
+import com.example.pokedexapp.domain.usecase.SearchPokemonUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,6 +17,10 @@ import javax.inject.Inject
 class PokeSharedViewModel @Inject constructor(
     private val getAllPokemonsUseCase: GetAllPokemonsUseCase,
     private val getOnePokemonUseCase: GetOnePokemonUseCase,
+    private val getAllPokemonsFromDBUseCase: GetAllPokemonsFromDBUseCase,
+    private val insertListOfPokemonsUseCase: InsertListOfPokemonsUseCase,
+    private val searchPokemonUseCase: SearchPokemonUseCase,
+    private val emptyTableUseCase: EmptyTableUseCase,
 ) : ViewModel() {
 
     init {

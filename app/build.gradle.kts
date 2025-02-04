@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id(libs.plugins.hilt.kapt.get().pluginId)
     id(libs.plugins.hilt.plugin.get().pluginId)
+    id(libs.plugins.ksp.plugin.get().pluginId)
 }
 
 android {
@@ -69,6 +70,12 @@ dependencies {
 
     // Arrow
     implementation(libs.arrow)
+
+    // Room
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    annotationProcessor(libs.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,4 +1,4 @@
-package com.example.pokedexapp.data.model
+package com.example.pokedexapp.data.model.responses
 
 import com.example.pokedexapp.domain.model.PokedexDto
 import com.google.gson.annotations.SerializedName

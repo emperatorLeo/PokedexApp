@@ -1,4 +1,4 @@
-package com.example.pokedexapp.data.datasource
+package com.example.pokedexapp.data.remotedatasource
 
 import arrow.core.Either
 import com.example.pokedexapp.domain.model.PokedexDto
