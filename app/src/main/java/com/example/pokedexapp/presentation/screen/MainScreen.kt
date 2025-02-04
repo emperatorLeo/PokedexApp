@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -32,13 +33,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.pokedexapp.R
+import com.example.pokedexapp.common.getImageUrl
 import com.example.pokedexapp.domain.model.PokemonDto
 import com.example.pokedexapp.presentation.UIState
 import com.example.pokedexapp.presentation.viewmodel.PokeSharedViewModel
 
 @Composable
 fun MainScreen(viewModel: PokeSharedViewModel, navaController: NavController) {
-    val pokemonList = viewModel.getAllDBPokemons()
+    viewModel.getAllDBPokemons()
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -52,10 +54,13 @@ fun MainScreen(viewModel: PokeSharedViewModel, navaController: NavController) {
             }
 
             is UIState.Success -> {
-                LazyColumn(Modifier.fillMaxSize()) {
+                LazyColumn(
+                    Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     item { SearchBarComponent() }
                     val list = state.value as UIState.Success
-                    items(list.data){
+                    items(list.data) {
                         PokeItemComponent(it)
                     }
                 }
@@ -86,30 +91,37 @@ private fun SearchBarComponent() {
 
 @Composable
 private fun PokeItemComponent(pokemonDto: PokemonDto) {
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .height(50.dp), verticalAlignment = Alignment.CenterVertically
-    ) {
-        AsyncImage(
-            modifier = Modifier
-                .padding(10.dp)
-                .size(50.dp),
-            model = "https://example.com/image.jpg",
-            contentDescription = null,
-            placeholder = painterResource(R.drawable.ic_launcher_foreground)
-        )
-        Text(pokemonDto.name, fontSize = 12.sp, style = TextStyle(fontStyle = FontStyle.Italic))
+    Column {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .height(50.dp), verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                modifier = Modifier
+                    .padding(10.dp)
+                    .size(80.dp),
+                model = getImageUrl(pokemonDto.id),
+                contentDescription = null,
+                placeholder = painterResource(R.drawable.ic_launcher_foreground)
+            )
+            Text(pokemonDto.name, fontSize = 12.sp, style = TextStyle(fontStyle = FontStyle.Italic))
+        }
+        HorizontalDivider()
     }
 }
 
 @Composable
+@Preview(showBackground = true)
 private fun LoadingComponent() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(Modifier.align(Alignment.Center)) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Column(
+            Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             CircularProgressIndicator(
                 modifier = Modifier
-                    .size(300.dp)
+                    .size(250.dp)
             )
 
             Text("Espera, estamos atrapando todos los pokemones para ti")

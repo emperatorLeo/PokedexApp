@@ -71,8 +71,9 @@ class PokeSharedViewModel @Inject constructor(
             query.collect {
                 if (it.isEmpty()) {
                     _uiState.value = UIState.Loading
+                    getAllPokemons()
                 } else {
-                    _uiState.value = UIState.Success(pokemonList)
+                    _uiState.value = UIState.Success(it)
                 }
             }
         }
