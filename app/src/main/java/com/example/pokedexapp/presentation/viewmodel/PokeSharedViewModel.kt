@@ -11,7 +11,10 @@ import com.example.pokedexapp.domain.usecase.GetAllPokemonsUseCase
 import com.example.pokedexapp.domain.usecase.GetOnePokemonUseCase
 import com.example.pokedexapp.domain.usecase.InsertListOfPokemonsUseCase
 import com.example.pokedexapp.domain.usecase.SearchPokemonUseCase
+import com.example.pokedexapp.presentation.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,6 +28,8 @@ class PokeSharedViewModel @Inject constructor(
     private val emptyTableUseCase: EmptyTableUseCase,
 ) : ViewModel() {
     private val pokemonList = arrayListOf<PokemonDto>()
+    private val _uiState = MutableStateFlow<UIState>(UIState.Idle)
+    val uiState = _uiState.asStateFlow()
 
     private fun getAllPokemons() {
         viewModelScope.launch {
@@ -44,7 +49,7 @@ class PokeSharedViewModel @Inject constructor(
         }
     }
 
-    private fun searchPokemon(name:String){
+    private fun searchPokemon(name: String) {
         viewModelScope.launch {
             val query = searchPokemonUseCase.invoke(name)
             query.collect {
@@ -60,11 +65,15 @@ class PokeSharedViewModel @Inject constructor(
         }
     }
 
-    private fun getAllDBPokemons() {
+    fun getAllDBPokemons() {
         viewModelScope.launch {
             val query = getAllPokemonsFromDBUseCase.invoke()
             query.collect {
-                Log.d("Leo", "db List: $it")
+                if (it.isEmpty()) {
+                    _uiState.value = UIState.Loading
+                } else {
+                    _uiState.value = UIState.Success(pokemonList)
+                }
             }
         }
     }

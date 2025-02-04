@@ -77,6 +77,10 @@ dependencies {
     ksp(libs.room.compiler)
     annotationProcessor(libs.room.compiler)
 
+    // Coil
+    implementation(libs.coil)
+    implementation(libs.coil.network)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
