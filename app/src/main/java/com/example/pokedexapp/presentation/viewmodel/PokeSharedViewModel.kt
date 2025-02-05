@@ -1,5 +1,8 @@
 package com.example.pokedexapp.presentation.viewmodel
 
+import android.net.ConnectivityManager
+import android.net.Network
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.core.Either
@@ -23,8 +26,11 @@ class PokeSharedViewModel @Inject constructor(
     private val getAllPokemonsFromDBUseCase: GetAllPokemonsFromDBUseCase,
     private val insertListOfPokemonsUseCase: InsertListOfPokemonsUseCase,
     private val searchPokemonUseCase: SearchPokemonUseCase,
+    private val connectivity: ConnectivityManager,
 ) : ViewModel() {
     private val pokemonList = arrayListOf<PokemonDto>()
+    private val _connectionStatus = MutableStateFlow(false)
+    val connectionStatus = _connectionStatus.asStateFlow()
     private val _uiState = MutableStateFlow<UIState>(UIState.Idle)
     val uiState = _uiState.asStateFlow()
 
@@ -46,13 +52,33 @@ class PokeSharedViewModel @Inject constructor(
         }
     }
 
+    fun checkConnection() {
+        connectivity.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback(){
+            override fun onLost(network: Network) {
+                super.onLost(network)
+                Log.d("Leo","onLost")
+                _connectionStatus.value = false
+            }
+
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+                Log.d("Leo","onAvailable")
+                _connectionStatus.value = true
+            }
+        })
+    }
+
     fun getSelectedPokemon(id: Int) = pokemonList.filter { it.id == id }[0]
 
     fun searchPokemon(name: String) {
         viewModelScope.launch {
             val query = searchPokemonUseCase.invoke(name)
             query.collect {
-                _uiState.value = UIState.Success(it)
+                if (it.isEmpty()) {
+                    _uiState.value = UIState.Error.UnknownPokemon
+                } else {
+                    _uiState.value = UIState.Success(it)
+                }
             }
         }
     }
@@ -69,8 +95,14 @@ class PokeSharedViewModel @Inject constructor(
             val query = getAllPokemonsFromDBUseCase.invoke()
             query.collect {
                 if (it.isEmpty()) {
-                    _uiState.value = UIState.Loading
-                    getAllPokemons()
+                    if (connectionStatus.value) {
+                        Log.d("Leo","YES internet")
+                        _uiState.value = UIState.Loading
+                        getAllPokemons()
+                    } else {
+                        Log.d("Leo","No internet")
+                        _uiState.value = UIState.Error.NoInternetConnection
+                    }
                 } else {
                     pokemonList.addAll(it)
                     _uiState.value = UIState.Success(pokemonList)

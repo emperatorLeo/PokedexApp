@@ -1,6 +1,5 @@
 package com.example.pokedexapp.presentation.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,8 +22,11 @@ import com.example.pokedexapp.presentation.viewmodel.PokeSharedViewModel
 
 @Composable
 fun MainScreen(viewModel: PokeSharedViewModel, navController: NavController) {
+    viewModel.checkConnection()
     viewModel.getAllDBPokemons()
     val state = viewModel.uiState.collectAsStateWithLifecycle()
+    //viewModel.connectionStatus.collectAsStateWithLifecycle()
+
     var text by remember { mutableStateOf("") }
     var searchBarEnabled by remember { mutableStateOf(false) }
     LazyColumn(
@@ -59,17 +61,24 @@ fun MainScreen(viewModel: PokeSharedViewModel, navController: NavController) {
                 if (state.value is UIState.Success) {
                     items((state.value as UIState.Success).data) {
                         PokeItem(it) { pokeId ->
-                            Log.d("Leo","poke id: $pokeId")
-                            val route = AppRoutes.DETAIL_SCREEN.replace("{${AppRoutes.POKE_ID}}",pokeId.toString())
+                            val route = AppRoutes.DETAIL_SCREEN.replace(
+                                "{${AppRoutes.POKE_ID}}",
+                                pokeId.toString()
+                            )
                             navController.navigate(route)
                         }
                     }
                 }
             }
 
-            is UIState.Error.NoInternetConnection -> {}
-            is UIState.Error.UnknownPokemon -> {
+            is UIState.Error.NoInternetConnection -> item {
+                searchBarEnabled = false
+                NoInternetConnectionScreen()
+            }
+
+            is UIState.Error.UnknownPokemon -> item {
                 searchBarEnabled = true
+                UnknownPokemonScreen()
             }
         }
     }

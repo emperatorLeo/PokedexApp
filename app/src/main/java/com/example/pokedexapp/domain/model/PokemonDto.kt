@@ -15,12 +15,12 @@ data class PokemonDto(
     fun fromDtoToEntity(): Pokemon {
         this.apply {
             return Pokemon(
-                id,
-                name,
-                TypeList(type),
-                baseExperience,
-                height,
-                MovementList(movements)
+                id = id,
+                name = name,
+                type = TypeList(type),
+                baseExperience = baseExperience,
+                height = height,
+                movements = MovementList(movements)
             )
         }
     }
