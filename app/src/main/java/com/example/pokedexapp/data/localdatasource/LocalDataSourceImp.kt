@@ -17,7 +17,7 @@ class LocalDataSourceImp(db: PokeDatabase) : LocalDataSource {
     }
 
     override suspend fun searchPokemon(name: String) = flow {
-        dao.getFilterPokemons(name).collect {
+        dao.getFilterPokemons("%$name%").collect {
             emit(it.map { pokemon -> pokemon.fromEntityToDto() })
         }
     }

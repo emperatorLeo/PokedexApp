@@ -1,6 +1,5 @@
 package com.example.pokedexapp.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.core.Either
@@ -10,7 +9,7 @@ import com.example.pokedexapp.domain.usecase.GetAllPokemonsUseCase
 import com.example.pokedexapp.domain.usecase.GetPokemonInfoUseCase
 import com.example.pokedexapp.domain.usecase.InsertListOfPokemonsUseCase
 import com.example.pokedexapp.domain.usecase.SearchPokemonUseCase
-import com.example.pokedexapp.presentation.UIState
+import com.example.pokedexapp.presentation.states.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -47,11 +46,11 @@ class PokeSharedViewModel @Inject constructor(
         }
     }
 
-    private fun searchPokemon(name: String) {
+    fun searchPokemon(name: String) {
         viewModelScope.launch {
             val query = searchPokemonUseCase.invoke(name)
             query.collect {
-                Log.d("Leo", "db search List: $it")
+                _uiState.value = UIState.Success(it)
             }
         }
     }
