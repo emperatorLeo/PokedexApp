@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.pokedexapp.common.EMPTY_STRING
@@ -19,6 +18,7 @@ import com.example.pokedexapp.presentation.component.PokeItem
 import com.example.pokedexapp.presentation.component.SearchBarComponent
 import com.example.pokedexapp.presentation.navigation.AppRoutes
 import com.example.pokedexapp.presentation.states.UIState
+import com.example.pokedexapp.presentation.theme.Dimen50dp
 import com.example.pokedexapp.presentation.viewmodel.PokeSharedViewModel
 
 @Composable
@@ -36,7 +36,7 @@ fun MainScreen(viewModel: PokeSharedViewModel, navController: NavController) {
     ) {
         item {
             SearchBarComponent(
-                modifier = Modifier.padding(top = 50.dp),
+                modifier = Modifier.padding(top = Dimen50dp),
                 enabled = searchBarEnabled,
                 text
             ) { input ->

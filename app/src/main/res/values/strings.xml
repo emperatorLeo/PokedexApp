@@ -8,5 +8,6 @@
     <string name="exception_error">Algo terrible paso, vuelve a intentar mas tarde</string>
     <string name="no_internet_error">No tienes conexion a internet, fue el equipo Rocket!</string>
     <string name="please_wait">Por favor espera, estamos atrapando todos los pokemones para ti</string>
-
+    <string name="search_your_pokemnon">Busca tu Pokemon</string>
+    <string name="learned_at">Lo aprende en el LVL: $d</string>
 </resources>

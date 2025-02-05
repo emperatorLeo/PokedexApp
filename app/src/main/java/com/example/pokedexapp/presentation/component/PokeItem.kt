@@ -15,12 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.example.pokedexapp.R
 import com.example.pokedexapp.common.getImageUrl
 import com.example.pokedexapp.domain.model.PokemonDto
+import com.example.pokedexapp.presentation.theme.Dimen10dp
+import com.example.pokedexapp.presentation.theme.Dimen50dp
+import com.example.pokedexapp.presentation.theme.Dimen80dp
+import com.example.pokedexapp.presentation.theme.Font12sp
 
 @Composable
 fun PokeItem(pokemonDto: PokemonDto, onItemClick: (Int) -> Unit) {
@@ -28,17 +30,17 @@ fun PokeItem(pokemonDto: PokemonDto, onItemClick: (Int) -> Unit) {
         Row(
             Modifier
                 .fillMaxWidth()
-                .height(50.dp), verticalAlignment = Alignment.CenterVertically
+                .height(Dimen50dp), verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .padding(10.dp)
-                    .size(80.dp),
+                    .padding(Dimen10dp)
+                    .size(Dimen80dp),
                 model = getImageUrl(pokemonDto.id),
                 contentDescription = null,
                 placeholder = painterResource(R.drawable.ic_launcher_foreground)
             )
-            Text(pokemonDto.name, fontSize = 12.sp, style = TextStyle(fontStyle = FontStyle.Italic))
+            Text(pokemonDto.name, fontSize = Font12sp, style = TextStyle(fontStyle = FontStyle.Italic))
         }
         HorizontalDivider()
     }

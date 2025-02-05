@@ -12,10 +12,13 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.pokedexapp.R
+import com.example.pokedexapp.common.EMPTY_STRING
+import com.example.pokedexapp.presentation.theme.Dimen10dp
+import com.example.pokedexapp.presentation.theme.Font12sp
 
 @Composable
 fun SearchBarComponent(
@@ -30,17 +33,17 @@ fun SearchBarComponent(
             .background(Color.LightGray)
     ) {
         Icon(
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier.padding(Dimen10dp),
             imageVector = Icons.Rounded.Search,
             tint = Color.Magenta,
-            contentDescription = ""
+            contentDescription = EMPTY_STRING
         )
         TextField(enabled = enabled, value = text, onValueChange = { input ->
             search(input)
         }, label = {
             Text(
-                "Busca tu Pokemon",
-                fontSize = 12.sp,
+                stringResource(R.string.search_your_pokemnon),
+                fontSize = Font12sp,
                 style = TextStyle(fontStyle = FontStyle.Italic)
             )
         })

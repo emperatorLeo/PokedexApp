@@ -18,9 +18,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.pokedexapp.R
+import com.example.pokedexapp.common.EMPTY_STRING
+import com.example.pokedexapp.presentation.theme.Dimen10dp
+import com.example.pokedexapp.presentation.theme.Dimen20dp
+import com.example.pokedexapp.presentation.theme.Font20sp
 
 @Composable
 @Preview(showBackground = true)
@@ -31,16 +33,16 @@ fun UnknownPokemonScreen(){
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            modifier = Modifier.size(200.dp),
+            modifier = Modifier.size(Dimen20dp),
             painter = painterResource(R.drawable.unown),
-            contentDescription = ""
+            contentDescription = EMPTY_STRING
         )
 
         Text(
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier.padding(Dimen10dp),
             text = stringResource(R.string.unknown_pokemon),
             textAlign = TextAlign.Center,
-            style = TextStyle(fontSize = 20.sp, color = Color.Magenta, fontWeight = FontWeight.Bold)
+            style = TextStyle(fontSize = Font20sp, color = Color.Magenta, fontWeight = FontWeight.Bold)
         )
     }
 }

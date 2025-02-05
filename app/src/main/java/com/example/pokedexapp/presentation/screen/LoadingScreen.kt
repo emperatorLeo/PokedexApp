@@ -17,9 +17,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.pokedexapp.R
+import com.example.pokedexapp.presentation.theme.Dimen10dp
+import com.example.pokedexapp.presentation.theme.Dimen250
+import com.example.pokedexapp.presentation.theme.Font20sp
 
 @Composable
 @Preview(showBackground = true)
@@ -32,14 +33,14 @@ fun LoadingScreen() {
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
-                    .padding(10.dp)
-                    .size(250.dp)
+                    .padding(Dimen10dp)
+                    .size(Dimen250)
             )
             Text(
-                modifier = Modifier.padding(10.dp),
+                modifier = Modifier.padding(Dimen10dp),
                 text = stringResource(R.string.please_wait),
                 textAlign = TextAlign.Center,
-                style = TextStyle(fontSize = 20.sp, color = Color.Magenta, fontWeight = FontWeight.Bold)
+                style = TextStyle(fontSize = Font20sp, color = Color.Magenta, fontWeight = FontWeight.Bold)
             )
         }
     }
