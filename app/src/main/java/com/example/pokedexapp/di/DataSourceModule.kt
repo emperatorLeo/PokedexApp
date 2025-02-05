@@ -2,6 +2,7 @@ package com.example.pokedexapp.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.pokedexapp.common.BASE_URL
 import com.example.pokedexapp.data.localdatasource.LocalDataSource
 import com.example.pokedexapp.data.localdatasource.LocalDataSourceImp
 import com.example.pokedexapp.data.localdatasource.PokeDatabase
@@ -27,7 +28,7 @@ object DataSourceModule {
     @Provides
     fun provideRetrofitObject(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://pokeapi.co/api/v2/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

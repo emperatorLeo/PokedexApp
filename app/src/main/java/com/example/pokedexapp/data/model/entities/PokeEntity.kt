@@ -2,10 +2,11 @@ package com.example.pokedexapp.data.model.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.pokedexapp.common.TABLE_NAME
 import com.example.pokedexapp.domain.model.Movement
 import com.example.pokedexapp.domain.model.PokemonDto
 
-@Entity(tableName = "PokeTable")
+@Entity(tableName = TABLE_NAME)
 data class Pokemon(
     @PrimaryKey
     val id: Int,

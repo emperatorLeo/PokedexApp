@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,14 +34,19 @@ import com.example.pokedexapp.presentation.viewmodel.PokeSharedViewModel
 fun DetailScreen(viewModel: PokeSharedViewModel, navController: NavController, pokemonId: Int) {
     val pokemon = viewModel.getSelectedPokemon(pokemonId)
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item { Icon(
-            modifier = Modifier.padding(top = 20.dp, start = 10.dp).clickable {
-                navController.popBackStack()
-            }.size(30.dp),
-            imageVector = Icons.AutoMirrored.Default.ArrowBack,
-            tint = Color.Magenta,
-            contentDescription = ""
-        ) }
+        item {
+            Icon(
+                modifier = Modifier
+                    .padding(top = 20.dp, start = 10.dp)
+                    .clickable {
+                        navController.popBackStack()
+                    }
+                    .size(30.dp),
+                imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                tint = Color.Magenta,
+                contentDescription = ""
+            )
+        }
 
         item { ColumnHeader(pokemon.name, pokemonId) }
 
@@ -57,7 +63,7 @@ fun DetailScreen(viewModel: PokeSharedViewModel, navController: NavController, p
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 10.dp),
-                text = "Algunos de sus movientos son: ",
+                text = stringResource(R.string.some_movements),
                 style = TextStyle(
                     fontSize = 15.sp,
                     color = Color.Magenta,
@@ -94,9 +100,9 @@ private fun ColumnHeader(pokemonName: String, id: Int) {
 
 @Composable
 private fun ColumnBody(typeList: List<String>, experience: Int, height: Int) {
-    val tipo = StringBuilder("Tipo: ")
+    val stb = StringBuilder(stringResource(R.string.type))
     for (type in typeList) {
-        tipo.append("$type, ")
+        stb.append("$type, ")
     }
 
     Column(
@@ -106,19 +112,19 @@ private fun ColumnBody(typeList: List<String>, experience: Int, height: Int) {
     ) {
         Text(
             modifier = Modifier.padding(bottom = 10.dp),
-            text = tipo.toString(),
+            text = stb.toString(),
             style = TextStyle(fontSize = 12.sp, color = Color.Black, fontWeight = FontWeight.Medium)
         )
 
         Text(
             modifier = Modifier.padding(bottom = 10.dp),
-            text = "Experiencia: $experience",
+            text = stringResource(R.string.experience, experience),
             style = TextStyle(fontSize = 12.sp, color = Color.Black, fontWeight = FontWeight.Medium)
         )
 
         Text(
             modifier = Modifier.padding(bottom = 10.dp),
-            text = "Altura promedio: ${(height * 10)} cm",
+            text = stringResource(R.string.height, (height * 10)),
             style = TextStyle(fontSize = 12.sp, color = Color.Black, fontWeight = FontWeight.Medium)
         )
     }

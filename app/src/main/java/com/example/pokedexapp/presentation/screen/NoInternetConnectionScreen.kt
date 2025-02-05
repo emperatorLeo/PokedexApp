@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -37,7 +38,7 @@ fun NoInternetConnectionScreen() {
 
         Text(
             modifier = Modifier.padding(10.dp),
-            text = "No tienes conexion a internet, fue el equipo Rocket!",
+            text = stringResource(R.string.no_internet_error),
             textAlign = TextAlign.Center,
             style = TextStyle(fontSize = 20.sp, color = Color.Magenta, fontWeight = FontWeight.Bold)
         )

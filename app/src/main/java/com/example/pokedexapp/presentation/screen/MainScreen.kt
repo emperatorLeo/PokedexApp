@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.example.pokedexapp.common.EMPTY_STRING
 import com.example.pokedexapp.presentation.component.PokeItem
 import com.example.pokedexapp.presentation.component.SearchBarComponent
 import com.example.pokedexapp.presentation.navigation.AppRoutes
@@ -25,7 +26,7 @@ fun MainScreen(viewModel: PokeSharedViewModel, navController: NavController) {
     viewModel.checkConnection()
     viewModel.getAllDBPokemons()
     val state = viewModel.uiState.collectAsStateWithLifecycle()
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(EMPTY_STRING) }
     var searchBarEnabled by remember { mutableStateOf(false) }
 
     LazyColumn(

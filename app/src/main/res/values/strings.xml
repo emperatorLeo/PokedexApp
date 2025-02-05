@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">PokedexApp</string>
+    <string name="unknown_pokemon">Parece que aún no hemos descubierto este pokemon</string>
+    <string name="some_movements">Algunos de sus movientos son: </string>
+    <string name="type">Tipo: </string>
+    <string name="experience">Experiencia: %d</string>
+    <string name="height">Altura promedio: %d cm</string>
+    <string name="exception_error">Algo terrible paso, vuelve a intentar mas tarde</string>
+    <string name="no_internet_error">No tienes conexion a internet, fue el equipo Rocket!</string>
+    <string name="please_wait">Por favor espera, estamos atrapando todos los pokemones para ti</string>
+
 </resources>
