@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.pokedexapp.R
 import com.example.pokedexapp.presentation.theme.Dimen10dp
 import com.example.pokedexapp.presentation.theme.Dimen250
+import com.example.pokedexapp.presentation.theme.Dimen80dp
 import com.example.pokedexapp.presentation.theme.Font20sp
 
 @Composable
@@ -27,7 +28,7 @@ import com.example.pokedexapp.presentation.theme.Font20sp
 fun LoadingScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(
-            Modifier.align(Alignment.Center),
+            Modifier.align(Alignment.Center).fillMaxSize().padding(top = Dimen80dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
