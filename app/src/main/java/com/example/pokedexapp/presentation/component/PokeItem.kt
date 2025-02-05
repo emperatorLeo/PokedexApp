@@ -1,5 +1,6 @@
 package com.example.pokedexapp.presentation.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,8 +23,8 @@ import com.example.pokedexapp.common.getImageUrl
 import com.example.pokedexapp.domain.model.PokemonDto
 
 @Composable
-fun PokeItem(pokemonDto: PokemonDto) {
-    Column {
+fun PokeItem(pokemonDto: PokemonDto, onItemClick: (Int) -> Unit) {
+    Column(modifier = Modifier.clickable { onItemClick(pokemonDto.id) }) {
         Row(
             Modifier
                 .fillMaxWidth()

@@ -1,5 +1,6 @@
 package com.example.pokedexapp.presentation.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.pokedexapp.presentation.component.PokeItem
 import com.example.pokedexapp.presentation.component.SearchBarComponent
+import com.example.pokedexapp.presentation.navigation.AppRoutes
 import com.example.pokedexapp.presentation.states.UIState
 import com.example.pokedexapp.presentation.viewmodel.PokeSharedViewModel
 
@@ -32,7 +34,7 @@ fun MainScreen(viewModel: PokeSharedViewModel, navController: NavController) {
     ) {
         item {
             SearchBarComponent(
-                modifier = Modifier.padding(top = 100.dp),
+                modifier = Modifier.padding(top = 50.dp),
                 enabled = searchBarEnabled,
                 text
             ) { input ->
@@ -56,7 +58,11 @@ fun MainScreen(viewModel: PokeSharedViewModel, navController: NavController) {
                 searchBarEnabled = true
                 if (state.value is UIState.Success) {
                     items((state.value as UIState.Success).data) {
-                        PokeItem(it)
+                        PokeItem(it) { pokeId ->
+                            Log.d("Leo","poke id: $pokeId")
+                            val route = AppRoutes.DETAIL_SCREEN.replace("{${AppRoutes.POKE_ID}}",pokeId.toString())
+                            navController.navigate(route)
+                        }
                     }
                 }
             }

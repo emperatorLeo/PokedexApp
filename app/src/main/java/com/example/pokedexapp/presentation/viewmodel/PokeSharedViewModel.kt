@@ -46,6 +46,8 @@ class PokeSharedViewModel @Inject constructor(
         }
     }
 
+    fun getSelectedPokemon(id: Int) = pokemonList.filter { it.id == id }[0]
+
     fun searchPokemon(name: String) {
         viewModelScope.launch {
             val query = searchPokemonUseCase.invoke(name)
@@ -70,7 +72,8 @@ class PokeSharedViewModel @Inject constructor(
                     _uiState.value = UIState.Loading
                     getAllPokemons()
                 } else {
-                    _uiState.value = UIState.Success(it)
+                    pokemonList.addAll(it)
+                    _uiState.value = UIState.Success(pokemonList)
                 }
             }
         }
