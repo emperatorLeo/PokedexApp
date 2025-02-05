@@ -8,6 +8,7 @@ sealed class UIState {
     sealed class Error : UIState() {
         data object NoInternetConnection : UIState()
         data object UnknownPokemon: UIState()
+        data object Exception: UIState()
     }
     data object Idle : UIState()
 }

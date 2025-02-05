@@ -25,10 +25,9 @@ fun MainScreen(viewModel: PokeSharedViewModel, navController: NavController) {
     viewModel.checkConnection()
     viewModel.getAllDBPokemons()
     val state = viewModel.uiState.collectAsStateWithLifecycle()
-    //viewModel.connectionStatus.collectAsStateWithLifecycle()
-
     var text by remember { mutableStateOf("") }
     var searchBarEnabled by remember { mutableStateOf(false) }
+
     LazyColumn(
         Modifier
             .fillMaxSize(),
@@ -79,6 +78,11 @@ fun MainScreen(viewModel: PokeSharedViewModel, navController: NavController) {
             is UIState.Error.UnknownPokemon -> item {
                 searchBarEnabled = true
                 UnknownPokemonScreen()
+            }
+
+            is UIState.Error.Exception -> item {
+                searchBarEnabled = false
+                ExceptionScreen()
             }
         }
     }

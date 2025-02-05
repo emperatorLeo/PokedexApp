@@ -2,7 +2,6 @@ package com.example.pokedexapp.presentation.viewmodel
 
 import android.net.ConnectivityManager
 import android.net.Network
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.core.Either
@@ -30,7 +29,7 @@ class PokeSharedViewModel @Inject constructor(
 ) : ViewModel() {
     private val pokemonList = arrayListOf<PokemonDto>()
     private val _connectionStatus = MutableStateFlow(false)
-    val connectionStatus = _connectionStatus.asStateFlow()
+    private val connectionStatus = _connectionStatus.asStateFlow()
     private val _uiState = MutableStateFlow<UIState>(UIState.Idle)
     val uiState = _uiState.asStateFlow()
 
@@ -39,7 +38,9 @@ class PokeSharedViewModel @Inject constructor(
             val response = getAllPokemonsUseCase.invoke()
             response.collect {
                 when (it) {
-                    is Either.Left -> {}
+                    is Either.Left -> {
+                        _uiState.value = UIState.Error.Exception
+                    }
                     is Either.Right -> {
                         for (pokedex in it.value) {
                             getPokemonInfo(getId(pokedex.url))
@@ -56,13 +57,11 @@ class PokeSharedViewModel @Inject constructor(
         connectivity.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback(){
             override fun onLost(network: Network) {
                 super.onLost(network)
-                Log.d("Leo","onLost")
                 _connectionStatus.value = false
             }
 
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                Log.d("Leo","onAvailable")
                 _connectionStatus.value = true
             }
         })
@@ -96,11 +95,9 @@ class PokeSharedViewModel @Inject constructor(
             query.collect {
                 if (it.isEmpty()) {
                     if (connectionStatus.value) {
-                        Log.d("Leo","YES internet")
                         _uiState.value = UIState.Loading
                         getAllPokemons()
                     } else {
-                        Log.d("Leo","No internet")
                         _uiState.value = UIState.Error.NoInternetConnection
                     }
                 } else {
@@ -115,7 +112,9 @@ class PokeSharedViewModel @Inject constructor(
         val response = getPokemonInfoUseCase.invoke(id)
         response.collect {
             when (it) {
-                is Either.Left -> {}
+                is Either.Left -> {
+                    _uiState.value = UIState.Error.Exception
+                }
                 is Either.Right -> {
                     pokemonList.add(it.value)
                 }
