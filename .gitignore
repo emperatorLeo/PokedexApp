@@ -21,6 +21,7 @@ captures/
 output.json
 
 # IntelliJ
+*/.idea
 .idea/
 /.idea/caches
 /.idea/libraries
